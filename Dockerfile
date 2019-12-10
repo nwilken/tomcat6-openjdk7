@@ -18,15 +18,12 @@ ENV JAVA_HOME /usr/lib/jvm/java-1.7.0
 
 WORKDIR /usr/local
 
-COPY --from=installer /software/apache-tomcat-${TOMCAT_VERSION} apache-tomcat-${TOMCAT_VERSION}
-
-RUN set -x && \
-    ln -s apache-tomcat-${TOMCAT_VERSION} tomcat
-
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
-
+RUN mkdir -p "$CATALINA_HOME"
 WORKDIR $CATALINA_HOME
+
+COPY --from=installer /software/apache-tomcat-${TOMCAT_VERSION} .
 
 RUN set -x && \
     \
