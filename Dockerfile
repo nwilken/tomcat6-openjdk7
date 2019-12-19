@@ -26,6 +26,7 @@ WORKDIR $CATALINA_HOME
 COPY --from=installer /software/apache-tomcat-${TOMCAT_VERSION} .
 
 RUN set -x && \
+    rm bin/tomcat-native.tar.gz && \
     \
 # sh removes env vars it doesn't support (ones with periods)
 # https://github.com/docker-library/tomcat/issues/77
